@@ -1,13 +1,18 @@
 require("dotenv").config({ path: "./.env.local" });
-const express = require("express");
+import express from "express";
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const port = process.env.PORT || 8080;
 const mongoURL = process.env.DATABASE_URL;
 
+const userRoutes = require("./src/Routes/users/userRoutes");
+
+//middleware
 app.use(cors());
 app.use(express.json());
+
+app.use("/user", userRoutes);
 
 // connect to db
 mongoose
