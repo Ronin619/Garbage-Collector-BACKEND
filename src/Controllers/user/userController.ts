@@ -24,4 +24,15 @@ const addUser = async (req: Request, res: Response) => {
   }
 };
 
-export default { addUser, findAllUsers };
+// Delete a User
+const deleteUser = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const user = await User.findOneAndDelete({ _id: id });
+  if (!user) {
+    return res.status(400).json({ error: "user does not exist." });
+  }
+  res.status(200).json(user);
+};
+
+export default { addUser, findAllUsers, deleteUser };
