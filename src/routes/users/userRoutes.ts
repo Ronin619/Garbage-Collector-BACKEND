@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
-//const userCtrl = require("../../Controllers/user/userController");
-import addUser from "../../Controllers/user/userController";
+import userController from "../../Controllers/user/userController";
 
-router.post("/", addUser);
+router.get("/", userController.findAllUsers);
+router.post("/", userController.addUser);
 
 module.exports = router;

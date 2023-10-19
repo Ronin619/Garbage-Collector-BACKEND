@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
 const User = require("../../Models/usersModel");
 
+// Get all Users
+const findAllUsers = async (req: Request, res: Response) => {
+  const users = await User.find({});
+
+  res.status(200).json(users);
+};
+
 // Post a new User
 const addUser = async (req: Request, res: Response) => {
   const { username, password, email } = req.body;
@@ -17,4 +24,4 @@ const addUser = async (req: Request, res: Response) => {
   }
 };
 
-export default addUser;
+export default { addUser, findAllUsers };
