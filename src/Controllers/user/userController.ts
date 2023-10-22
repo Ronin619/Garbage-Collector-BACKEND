@@ -9,7 +9,7 @@ const findAllUsers = async (req: Request, res: Response) => {
 };
 
 // Post a new User
-const addUser = async (req: Request, res: Response) => {
+const registerUser = async (req: Request, res: Response) => {
   const { username, password, email } = req.body;
 
   try {
@@ -24,6 +24,8 @@ const addUser = async (req: Request, res: Response) => {
   }
 };
 
+// Post a user login
+
 // Delete a User
 const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -35,4 +37,4 @@ const deleteUser = async (req: Request, res: Response) => {
   res.status(200).json(user);
 };
 
-export default { addUser, findAllUsers, deleteUser };
+export default { registerUser, findAllUsers, deleteUser };
