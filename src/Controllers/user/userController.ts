@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 const User = require("../../Models/usersModel");
+const bcrypt = require("bcrypt");
+const saltRounds = 12;
 
 // Get all Users
 const findAllUsers = async (req: Request, res: Response) => {
@@ -10,18 +12,22 @@ const findAllUsers = async (req: Request, res: Response) => {
 
 // Post a new User
 const registerUser = async (req: Request, res: Response) => {
-  const { username, password, email } = req.body;
-
-  try {
-    const user = await User.create({ username, password, email });
-    res.status(200).json(user);
-  } catch (err) {
-    if (err instanceof Error) {
-      res.status(400).json(err.message);
-    } else {
-      res.status(400).json("Unexpected error");
+  bcrypt.hash(
+    req.body.password,
+    saltRounds,
+    async (err: string, hash: string) => {
+      const user = await User.create({
+        username: req.body.username,
+        password: hash,
+        email: req.body.email,
+      });
+      if (err) {
+        res.status(400).json(err);
+      } else {
+        res.status(200).json(user);
+      }
     }
-  }
+  );
 };
 
 // Post a user login
