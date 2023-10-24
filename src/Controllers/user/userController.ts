@@ -3,14 +3,14 @@ const User = require("../../Models/usersModel");
 const bcrypt = require("bcrypt");
 const saltRounds = 12;
 
-// Get all Users
+// Get: all Users
 const findAllUsers = async (req: Request, res: Response) => {
   const users = await User.find({});
 
   res.status(200).json(users);
 };
 
-// Post a new User
+// Post: Register new User
 const registerUser = async (req: Request, res: Response) => {
   bcrypt.hash(
     req.body.password,
@@ -30,7 +30,7 @@ const registerUser = async (req: Request, res: Response) => {
   );
 };
 
-// Post a user login
+// Post: Login user
 
 // Delete a User
 const deleteUser = async (req: Request, res: Response) => {
