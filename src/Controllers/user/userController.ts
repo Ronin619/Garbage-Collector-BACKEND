@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 const User = require("../../Models/usersModel");
-const bcrypt = require("bcrypt");
-const saltRounds = 12;
 
 // Get: all Users
 const findAllUsers = async (req: Request, res: Response) => {
@@ -12,27 +10,17 @@ const findAllUsers = async (req: Request, res: Response) => {
 
 // Post: Register new User
 const registerUser = async (req: Request, res: Response) => {
-  bcrypt.hash(
-    req.body.password,
-    saltRounds,
-    async (err: string, hash: string) => {
-      const exists = await User.findOne({ email: req.body.email });
-      if (exists) {
-        throw Error("Email already in use");
-      } else {
-        const user = await User.create({
-          username: req.body.username,
-          password: hash,
-          email: req.body.email,
-        });
-        if (err) {
-          res.status(400).json(err);
-        } else {
-          res.status(200).json(user);
-        }
-      }
+  const { email, password, username } = req.body;
+
+  try {
+    const user = await User.signup(email, password, username);
+
+    res.status(200).json({ email, user });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
     }
-  );
+  }
 };
 
 // Post: Login user
