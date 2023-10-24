@@ -16,15 +16,20 @@ const registerUser = async (req: Request, res: Response) => {
     req.body.password,
     saltRounds,
     async (err: string, hash: string) => {
-      const user = await User.create({
-        username: req.body.username,
-        password: hash,
-        email: req.body.email,
-      });
-      if (err) {
-        res.status(400).json(err);
+      const exists = await User.findOne({ email: req.body.email });
+      if (exists) {
+        throw Error("Email already in use");
       } else {
-        res.status(200).json(user);
+        const user = await User.create({
+          username: req.body.username,
+          password: hash,
+          email: req.body.email,
+        });
+        if (err) {
+          res.status(400).json(err);
+        } else {
+          res.status(200).json(user);
+        }
       }
     }
   );

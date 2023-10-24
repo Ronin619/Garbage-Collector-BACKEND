@@ -6,7 +6,7 @@ const cors = require("cors");
 const port = process.env.PORT || 8080;
 const mongoURL = process.env.DATABASE_URL;
 
-const userRoutes = require("./src/Routes/users/userRoutes");
+const userRoutes = require("./Routes/users/userRoutes");
 
 //middleware
 app.use(cors());
