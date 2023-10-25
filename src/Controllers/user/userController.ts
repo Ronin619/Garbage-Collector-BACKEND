@@ -10,12 +10,12 @@ const findAllUsers = async (req: Request, res: Response) => {
 
 // Post: Register new User
 const registerUser = async (req: Request, res: Response) => {
-  const { email, password, username } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await User.signup(email, password, username);
+    const user = await User.signup(email, password);
 
-    res.status(200).json({ email, user });
+    res.status(200).json({ user });
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).json({ error: error.message });
