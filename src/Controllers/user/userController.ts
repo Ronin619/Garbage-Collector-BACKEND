@@ -32,6 +32,20 @@ const registerUser = async (req: Request, res: Response) => {
 };
 
 // Post: Login user
+const loginUser = async(req: Request, res: Response) {
+  const {email, password} = req.body;
+
+  try {
+    const user = await User.login(email, password);
+    const token = createToken(user._id);
+
+    res.status(200).json({email, token});
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).json({error: error.message});
+    }
+  }
+}
 
 // Delete a User
 const deleteUser = async (req: Request, res: Response) => {
