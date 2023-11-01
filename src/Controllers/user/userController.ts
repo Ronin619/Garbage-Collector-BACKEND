@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 const User = require("../../Models/usersModel");
 const jwt = require("jsonwebtoken");
 
+// Generate jwt token
 const createToken = (_id: string) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "1d" });
 };
 
 // Get: all Users
@@ -19,7 +20,6 @@ const registerUser = async (req: Request, res: Response) => {
 
   try {
     const user = await User.signup(email, password);
-
     // create token
     const token = createToken(user._id);
 
