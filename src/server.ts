@@ -7,12 +7,14 @@ const port = process.env.PORT || 8080;
 const mongoURL = process.env.DATABASE_URL;
 
 const userRoutes = require("./Routes/users/userRoutes");
+const entryPostRoutes = require("./Routes/entryPosts/entryPostRoutes");
 
 //middleware
 app.use(cors());
 app.use(express.json());
 
 app.use("/user", userRoutes);
+app.use("/entryPost", entryPostRoutes);
 
 // connect to db
 mongoose
