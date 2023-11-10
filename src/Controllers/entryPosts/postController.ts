@@ -10,10 +10,14 @@ const Post = require("../../Models/postEntryModel");
 
 // POST:Create a new entry
 const createEntry = async (req: Request, res: Response) => {
-  const { title, postEntry } = req.body;
+  //const { title, postEntry } = req.body;
 
   try {
-    const entry = await Post.create({ title, postEntry });
+    const entry = await Post.create({
+      title: req.body.title,
+      postEntry: req.body.postEntry,
+      author: req.user.id,
+    });
     res.status(200).json(entry);
   } catch (error) {
     if (error instanceof Error) {

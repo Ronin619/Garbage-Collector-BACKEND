@@ -3,6 +3,10 @@ const schema = mongoose.Schema;
 
 const postEntrySchema = new schema(
   {
+    author: {
+      type: schema.Types.ObjectId,
+      ref: "usersModel",
+    },
     title: {
       type: String,
       required: true,
