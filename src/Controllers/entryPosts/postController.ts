@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 const Post = require("../../Models/postEntryModel");
 
 // Get: Get all entries
-// const getAllEntries = async (req: Request, res: Response) => {
-//   const posts = await Post.find({});
+const getAllEntries = async (req: Request, res: Response) => {
+  const posts = await Post.find({});
 
-//   res.status(200).json(posts);
-// };
+  res.status(200).json(posts);
+};
 
 // POST:Create a new entry
 const createEntry = async (req: Request, res: Response) => {
@@ -16,7 +16,7 @@ const createEntry = async (req: Request, res: Response) => {
     const entry = await Post.create({
       title: req.body.title,
       postEntry: req.body.postEntry,
-      author: req.user.id,
+      author: req.user,
     });
     res.status(200).json(entry);
   } catch (error) {
@@ -26,4 +26,4 @@ const createEntry = async (req: Request, res: Response) => {
   }
 };
 
-export default { createEntry };
+export default { getAllEntries, createEntry };
