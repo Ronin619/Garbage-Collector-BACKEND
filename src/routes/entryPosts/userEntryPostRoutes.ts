@@ -7,5 +7,6 @@ router.use(requireAuth);
 
 router.get("/", userPostController.getAllEntriesByUser);
 router.post("/createPost", userPostController.createEntry);
+router.patch("/updatePost/:id", userPostController.editEntry);
 
 module.exports = router;
