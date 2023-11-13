@@ -8,5 +8,6 @@ router.use(requireAuth);
 router.get("/", userPostController.getAllEntriesByUser);
 router.post("/createPost", userPostController.createEntry);
 router.patch("/updatePost/:id", userPostController.editEntry);
+router.delete("/deletePost/:id", userPostController.deleteEntry);
 
 module.exports = router;

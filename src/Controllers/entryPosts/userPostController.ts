@@ -44,4 +44,17 @@ const editEntry = async (req: Request, res: Response) => {
   }
 };
 
-export default { getAllEntriesByUser, createEntry, editEntry };
+const deleteEntry = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const deletedPost = await Entry.findByIdAndDelete(id);
+    res.status(200).json(deletedPost);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+};
+
+export default { getAllEntriesByUser, createEntry, editEntry, deleteEntry };
