@@ -5,7 +5,7 @@ import postController from "../../Controllers/entryPosts/postController";
 
 router.use(requireAuth);
 
-router.get("/", postController.getAllEntries);
-router.post("/", postController.createEntry);
+router.get("/", postController.getAllEntriesByUser);
+router.post("/createPost", postController.createEntry);
 
 module.exports = router;
