@@ -13,10 +13,11 @@ const createEntry = async (req: Request, res: Response) => {
   //const { title, postEntry } = req.body;
 
   try {
+    const user_id = req.userId;
     const entry = await Post.create({
       title: req.body.title,
       postEntry: req.body.postEntry,
-      author: req.user,
+      author: user_id,
     });
     res.status(200).json(entry);
   } catch (error) {
